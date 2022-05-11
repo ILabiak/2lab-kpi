@@ -18,7 +18,7 @@ func CalculatePostfix(input string) (string, error) {
 		case "+", "-", "*", "/", "^":
 			var firstVal, secondVal float64
 			if len(stack) < 2 {
-				return "0", fmt.Errorf("There are no 2 values, can't calculate expression - %s", char)
+				return "Nil", fmt.Errorf("There are no 2 values, can't calculate expression - %s", char)
 			}
 			stack, firstVal, secondVal = GetValuesFromStack(stack)
 			switch char {
@@ -36,13 +36,13 @@ func CalculatePostfix(input string) (string, error) {
 		default:
 			var err error
 			if value, err = strconv.ParseFloat(char, 64); err != nil {
-				return "0", fmt.Errorf("Wrong value - %s", char)
+				return "Nil", fmt.Errorf("Wrong value - %s", char)
 			}
 		}
 		stack = append(stack, value)
 	}
 	if len(stack) != 1 {
-		return "0", fmt.Errorf("Wrong expression - %s", stack)
+		return "Nil", fmt.Errorf("Wrong expression")
 	}
 	str := fmt.Sprintf("%f", stack[0])
 	return str, nil
