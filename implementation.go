@@ -1,4 +1,4 @@
-package main //package lab2
+package lab2 //package lab2
 
 import (
 	"fmt"
@@ -54,12 +54,4 @@ func GetValuesFromStack(stack []float64) ([]float64, float64, float64) {
 	stack, values = stack[:len(stack)-2], stack[len(stack)-2:]
 	//fmt.Println(values[0], values[1])
 	return stack, values[0], values[1]
-}
-
-func main() {
-	fmt.Println(CalculatePostfix("0")) 
-	fmt.Println(CalculatePostfix("1 2 + 6 - 2 *"))
-	fmt.Println(CalculatePostfix("1 2 6 * + 3 +"))
-	fmt.Println(CalculatePostfix("2 5 ^"))
-	fmt.Println(CalculatePostfix(""))
 }
