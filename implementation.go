@@ -7,8 +7,10 @@ import (
 	"strings"
 )
 
-// TODO: document this function.
-// Calculate postfix expression
+// This function accepts postfix expression as string and calculates it.
+// Returns result as string and error.
+// If there is no result - returns "Nil" and error.
+// If there is no error - returns result and nil as error.
 func CalculatePostfix(input string) (string, error) {
 	var stack []float64
 	var chars = strings.Fields(input)
