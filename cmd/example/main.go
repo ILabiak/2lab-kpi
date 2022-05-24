@@ -1,18 +1,20 @@
 package main
 
 import (
-//	"flag"
+	"flag"
 	"fmt"
+
 	lab2 "github.com/ILabiak/2lab-kpi"
 )
 
 var (
-//	inputExpression = flag.String("e", "", "Expression to compute")
-	// TODO: Add other flags support for input and output configuration.
+	inputExpression = flag.String("e", "", "Expression to compute")
+	inputFile       = flag.String("f", "", "File to take expression from")
+	outputFile      = flag.String("o", "", "Output file")
 )
 
 func main() {
-	//flag.Parse()
+	flag.Parse()
 
 	// TODO: Change this to accept input from the command line arguments as described in the task and
 	//       output the results using the ComputeHandler instance.
@@ -22,7 +24,7 @@ func main() {
 	//       }
 	//       err := handler.Compute()
 
-	fmt.Println(lab2.CalculatePostfix("0")) 
+	fmt.Println(lab2.CalculatePostfix("0"))
 	fmt.Println(lab2.CalculatePostfix("1 2 + 6 - 2 *"))
 	fmt.Println(lab2.CalculatePostfix("1 2 6 * + 3 +"))
 	fmt.Println(lab2.CalculatePostfix("2 5 ^"))
