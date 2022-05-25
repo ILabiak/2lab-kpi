@@ -50,7 +50,6 @@ func CalculatePostfix(input string) (string, error) {
 	return str, nil
 }
 
-
 func GetValuesFromStack(stack []float64) ([]float64, float64, float64) {
 	var values []float64
 	stack, values = stack[:len(stack)-2], stack[len(stack)-2:]
