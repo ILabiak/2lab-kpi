@@ -2,7 +2,9 @@ package main
 
 import (
 	"flag"
-	"fmt"
+	"io"
+	"os"
+	"strings"
 
 	lab2 "github.com/ILabiak/2lab-kpi"
 )
@@ -11,22 +13,54 @@ var (
 	inputExpression = flag.String("e", "", "Expression to compute")
 	inputFile       = flag.String("f", "", "File to take expression from")
 	outputFile      = flag.String("o", "", "Output file")
+	handler         lab2.ComputeHandler
+	reader          io.Reader = nil
+	writer          io.Writer = nil
 )
 
 func main() {
 	flag.Parse()
 
-	// TODO: Change this to accept input from the command line arguments as described in the task and
-	//       output the results using the ComputeHandler instance.
-	//       handler := &lab2.ComputeHandler{
-	//           Input: {construct io.Reader according the command line parameters},
-	//           Output: {construct io.Writer according the command line parameters},
-	//       }
-	//       err := handler.Compute()
+	if *inputExpression == "" && *inputFile == "" {
+		panic("No expression specified")
+	} else if *inputExpression != "" {
+		reader = strings.NewReader(*inputExpression)
+	} else if *inputFile != "" {
+		var (
+			exp []byte
+			err error
+		)
 
-	fmt.Println(lab2.CalculatePostfix("0"))
-	fmt.Println(lab2.CalculatePostfix("1 2 + 6 - 2 *"))
-	fmt.Println(lab2.CalculatePostfix("1 2 6 * + 3 +"))
-	fmt.Println(lab2.CalculatePostfix("2 5 ^"))
-	fmt.Println(lab2.CalculatePostfix(""))
+		exp, err = os.ReadFile(*inputFile)
+		if err != nil {
+			reader = strings.NewReader(string(exp))
+		} else {
+			panic(err)
+		}
+	}
+
+	if *outputFile != "" {
+		var err error
+		writer, err = os.OpenFile(*outputFile, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0600)
+		if err != nil {
+			panic(err)
+		}
+	} else {
+		writer = os.Stdout
+	}
+
+	handler := &lab2.ComputeHandler{
+		Input:  reader,
+		Output: writer,
+	}
+	var err error = handler.Compute()
+	if err != nil {
+		panic(err)
+	}
+
+	//fmt.Println(lab2.CalculatePostfix("0"))
+	//fmt.Println(lab2.CalculatePostfix("1 2 + 6 - 2 *"))
+	//fmt.Println(lab2.CalculatePostfix("1 2 6 * + 3 +"))
+	//fmt.Println(lab2.CalculatePostfix("2 5 ^"))
+	//fmt.Println(lab2.CalculatePostfix(""))
 }
