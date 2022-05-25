@@ -24,7 +24,7 @@ func main() {
 	if *inputExpression == "" && *inputFile == "" {
 		panic("No expression specified")
 	} else if *inputExpression != "" {
-		reader = strings.NewReader(*inputExpression)
+		reader = strings.NewReader(strings.Trim(*inputExpression, " "))
 	} else if *inputFile != "" {
 		var (
 			exp []byte
@@ -53,6 +53,7 @@ func main() {
 		Input:  reader,
 		Output: writer,
 	}
+
 	var err error = handler.Compute()
 	if err != nil {
 		panic(err)
