@@ -1,6 +1,7 @@
 package lab2
 
 import (
+	"fmt"
 	"io"
 )
 
@@ -12,16 +13,19 @@ type ComputeHandler struct {
 }
 
 func (ch *ComputeHandler) Compute() error {
-	var buf []byte
+	var buf = make([]byte, 20)
 	var (
 		result string
 		err    error
+		exp    string
 	)
 	ch.Input.Read(buf)
-	result, err = CalculatePostfix(string(buf))
+	exp = string(buf)
+	result, err = CalculatePostfix(exp)
 	if result == "Nil" && err != nil {
 		ch.Output.Write([]byte(err.Error()))
 	} else if result != "Nil" {
+		fmt.Println(result)
 		ch.Output.Write([]byte(result))
 	} else {
 		return err
