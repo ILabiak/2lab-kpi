@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	//"fmt"
 	"io"
 	"os"
 	"strings"
@@ -32,7 +31,7 @@ func main() {
 		)
 
 		exp, err = os.ReadFile(*inputFile)
-		if err != nil {
+		if err == nil {
 			reader = strings.NewReader(string(exp))
 		} else {
 			panic(err)
@@ -48,7 +47,6 @@ func main() {
 	} else {
 		writer = os.Stdout
 	}
-	//fmt.Println(reader)
 	handler := &lab2.ComputeHandler{
 		Input:  reader,
 		Output: writer,
@@ -58,10 +56,4 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-
-	//fmt.Println(lab2.CalculatePostfix("0"))
-	//fmt.Println(lab2.CalculatePostfix("1 2 + 6 - 2 *"))
-	//fmt.Println(lab2.CalculatePostfix("1 2 6 * + 3 +"))
-	//fmt.Println(lab2.CalculatePostfix("2 5 ^"))
-	//fmt.Println(lab2.CalculatePostfix(""))
 }
