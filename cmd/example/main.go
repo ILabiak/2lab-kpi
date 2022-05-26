@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	//"fmt"
 	"io"
 	"os"
 	"strings"
@@ -20,7 +21,6 @@ var (
 
 func main() {
 	flag.Parse()
-
 	if *inputExpression == "" && *inputFile == "" {
 		panic("No expression specified")
 	} else if *inputExpression != "" {
@@ -48,7 +48,7 @@ func main() {
 	} else {
 		writer = os.Stdout
 	}
-
+	//fmt.Println(reader)
 	handler := &lab2.ComputeHandler{
 		Input:  reader,
 		Output: writer,

@@ -1,8 +1,9 @@
 package lab2
 
 import (
-	"fmt"
+	//"fmt"
 	"io"
+	"bytes"
 )
 
 // ComputeHandler should be constructed with input io.Reader and output io.Writer.
@@ -13,22 +14,25 @@ type ComputeHandler struct {
 }
 
 func (ch *ComputeHandler) Compute() error {
-	var buf = make([]byte, 20)
+	var buf = make([]byte, 1000)
 	var (
 		result string
 		err    error
 		exp    string
 	)
 	ch.Input.Read(buf)
+	n := bytes.IndexByte(buf, 0)
+    buf = buf[:n]
 	exp = string(buf)
 	result, err = CalculatePostfix(exp)
 	if result == "Nil" && err != nil {
 		ch.Output.Write([]byte(err.Error()))
 	} else if result != "Nil" {
-		fmt.Println(result)
+		//fmt.Println(result)
 		ch.Output.Write([]byte(result))
 	} else {
 		return err
 	}
 	return nil
 }
+

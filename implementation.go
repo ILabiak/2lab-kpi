@@ -2,6 +2,7 @@ package lab2 //package lab2
 
 import (
 	"fmt"
+	//"go/printer"
 	"math"
 	"strconv"
 	"strings"
@@ -36,9 +37,10 @@ func CalculatePostfix(input string) (string, error) {
 				value = math.Pow(firstVal, secondVal)
 			}
 		default:
+			//fmt.Printf(char)
 			var err error
 			if value, err = strconv.ParseFloat(char, 64); err != nil {
-				return "Nil", fmt.Errorf("Wrong value - %s", char)
+				return "Nil", fmt.Errorf("Wrong value - \"%s\"", char)
 			}
 		}
 		stack = append(stack, value)
