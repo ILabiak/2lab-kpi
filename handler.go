@@ -27,6 +27,7 @@ func (ch *ComputeHandler) Compute() error {
 	result, err = CalculatePostfix(exp)
 	if result == "Nil" && err != nil {
 		ch.Output.Write([]byte(err.Error()))
+		return err;
 	} else if result != "Nil" {
 		//fmt.Println(result)
 		ch.Output.Write([]byte(result))
