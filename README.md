@@ -2,3 +2,5 @@
 ---
 
 Використайте кнопку **"Use this template"**, щоб створити власний репозиторій.
+
+Github Actions test
