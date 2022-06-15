@@ -3,4 +3,9 @@
 
 Використайте кнопку **"Use this template"**, щоб створити власний репозиторій.
 
-Github Actions test 2
+Github Actions 
+
+Check is [passed](https://github.com/ILabiak/2lab-kpi/actions/runs/2496406017/)
+
+Chech is [failed](https://github.com/ILabiak/2lab-kpi/actions/runs/2496406017)
+
