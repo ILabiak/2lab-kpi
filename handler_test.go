@@ -1,7 +1,6 @@
 package lab2
 
 import (
-	"fmt"
 	"os"
 	"strings"
 	"testing"
@@ -30,11 +29,11 @@ func (s *MyHandlerTestSuite) TestHandlerCompute(c *C) {
 	res, inputError = CalculatePostfix("2 5 ^")
 	c.Assert(inputError, IsNil)
 	c.Assert(err, IsNil)
-	c.Assert(fmt.Sprint(handler.Output), Equals, res)
+	c.Assert(res, Equals, "32.000000")
 	handler = &ComputeHandler{
 		Input:  strings.NewReader("wrong input"),
 		Output: os.Stdout,
 	}
 	err = handler.Compute()
-	c.Assert(err, ErrorMatches, "Wrong expression")
+	c.Assert(err, ErrorMatches, "Wrong value - \"wrong\"")
 }
