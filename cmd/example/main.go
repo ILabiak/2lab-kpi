@@ -15,7 +15,7 @@ var (
 	outputFile      = flag.String("o", "", "Output file")
 	handler         lab2.ComputeHandler
 	reader          io.Reader = nil
-	writer          io.Writer = nil
+	writer          io.Writer = os.Stdout
 )
 
 func main() {
@@ -40,13 +40,16 @@ func main() {
 
 	if *outputFile != "" {
 		var err error
-		writer, err = os.OpenFile(*outputFile, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0600)
+		f, err := os.OpenFile(*outputFile, os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0600)
 		if err != nil {
 			panic(err)
 		}
+		defer f.Close()
+		writer = f
 	} else {
 		writer = os.Stdout
 	}
+
 	handler := &lab2.ComputeHandler{
 		Input:  reader,
 		Output: writer,
